@@ -40,7 +40,6 @@ class Server:
         else:
             return self.__dataset[i[0]:i[1]]
 
-
     def get_hyper(self, page: int = 1, page_size: int = 10) -> Dict:
         """Retrieves information about a page.
         """
@@ -60,9 +59,10 @@ class Server:
 
 def index_range(page: int, page_size: int) -> Tuple[int, int]:
     """
-    use index_range to find the correct indexes to paginate the dataset correctly
+    use index_range to find correct indexes to
+    paginate the dataset correctly
     """
     start_index = page * page_size - page_size
     end_index = start_index + page_size
-    return (start_index, end_index)
 
+    return (start_index, end_index)
