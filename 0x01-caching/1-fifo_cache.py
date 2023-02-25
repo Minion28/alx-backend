@@ -1,0 +1,39 @@
+#!/usr/bin/env python3
+"""First-In First-Out caching module.
+"""
+
+from collections import OrderedDict
+from base_caching import BaseCaching
+
+
+class FIFOCache(BaseCaching):
+    """
+    inherit from BaseCaching.
+    """
+
+    def __init__(self):
+        """
+        Initialize cache.
+        """
+
+        super().__init__()
+        self.cache_data = OrderedDict()
+
+    def put(self, key, item):
+        """
+        do nothing if item is none.
+        """
+
+        if key is None or item is None:
+            return
+        self.cache_data[key] = item
+        if len(self.cache_data) > BaseCaching.MAX_ITEMS:
+            first_key, _ = self.cache_data.popitem(False)
+            print("DISCARD:", first_key)
+
+    def get(self, key):
+        """
+        return none if key does not exist in self.cache_data.
+        """
+
+        return self.cache_data.get(key, None)
