@@ -43,8 +43,10 @@ class Server:
 
 def index_range(page: int, page_size: int) -> Tuple[int, int]:
     """
-    use index_range to find the correct indexes to paginate the dataset correctly
+    use index_range to find correct indexes to
+    paginate the dataset correctly
     """
     start_index = page * page_size - page_size
     end_index = start_index + page_size
+
     return (start_index, end_index)
