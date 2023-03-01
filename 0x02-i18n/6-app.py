@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 '''
-mock logging in
+user locale
 '''
 
 from typing import Union
 from flask import Flask, render_template, request, g
-from os import getenv
 from flask_babel import Babel
 
 app = Flask(__name__)
@@ -13,27 +12,30 @@ babel = Babel(app)
 
 
 users = {
-    1: {"g": "Balou", "locale": "fr", "timezone": "Europe/Paris"},
-    2: {"g": "Beyonce", "locale": "en", "timezone": "US/Central"},
-    3: {"g": "Spock", "locale": "kg", "timezone": "Vulcan"},
-    4: {"g": "Teletubby", "locale": None, "timezone": "Europe/London"},
+    1: {"name": "Balou", "locale": "fr", "timezone": "Europe/Paris"},
+    2: {"name": "Beyonce", "locale": "en", "timezone": "US/Central"},
+    3: {"name": "Spock", "locale": "kg", "timezone": "Vulcan"},
+    4: {"name": "Teletubby", "locale": None, "timezone": "Europe/London"},
 }
 
 
 class Config:
-    ''' app Config '''
+    '''
+    config class
+    '''
     LANGUAGES = ["en", "fr"]
     BABEL_DEFAULT_LOCALE = "en"
     BABEL_DEFAULT_TIMEZONE = "UTC"
 
 
-app.config.from_object('5-app.Config')
+app.config.from_object('6-app.Config')
 
 
 @app.before_request
 def before_request():
     '''
-    check if user is available'''
+    Function before request
+    '''
     g.user = get_user()
 
 
@@ -49,11 +51,11 @@ def get_locale():
 
 
 @app.route("/", methods=["GET"], strict_slashes=False)
-def home():
+def home() -> str:
     '''
-    return 5-index.html
+    return 6-index.html
     '''
-    return render_template('5-index.html')
+    return render_template('6-index.html')
 
 
 def get_user() -> Union[dict, None]:
