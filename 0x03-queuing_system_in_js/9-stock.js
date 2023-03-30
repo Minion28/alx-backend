@@ -2,10 +2,8 @@ import { createClient } from 'redis';
 import express from 'express';
 import { promisify } from 'util';
 
-//create express server on port 1245
 const app = express();
 
-//create redis client
 const redisClient = createClient();
 
 redisClient.on('connect', function() {
@@ -16,7 +14,6 @@ redisClient.on('error', function (err) {
   console.log(`Redis client not connected to the server: ${err}`);
 });
 
-//promisify client.get function
 const get = promisify(redisClient.get).bind(redisClient);
 
 const listProducts = [
@@ -26,7 +23,6 @@ const listProducts = [
   { 'itemId': 4, 'itemName': 'Suitcase 1050', 'price': 550, 'initialAvailableQuantity': 5}
 ];
 
-//retrieve item by id
 function getItemById(id) {
   return listProducts.filter((item) => item.itemId === id)[0];
 }
@@ -40,7 +36,6 @@ async function getCurrentReservedStockById(itemId) {
   return stock;
 }
 
-//express routes
 app.get('/list_products', function (req, res) {
   res.json(listProducts);
 });
@@ -89,7 +84,6 @@ app.get('/reserve_product/:itemId', async function (req, res) {
 });
 
 
-//set up express server
 const port = 1245;
 app.listen(port, () => {
   console.log(`app listening at http://localhost:${port}`);

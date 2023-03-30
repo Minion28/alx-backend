@@ -3,7 +3,6 @@ import { createQueue } from 'kue';
 import { promisify } from 'util';
 import express from 'express';
 
-//create redis client
 const redisClient = createClient();
 
 redisClient.on('connect', function() {
@@ -14,7 +13,6 @@ redisClient.on('error', function (err) {
   console.log(`Redis client not connected to the server: ${err}`);
 });
 
-//promisify client.get function
 const asyncGet = promisify(redisClient.get).bind(redisClient);
 
 function reserveSeat(number) {
@@ -28,10 +26,8 @@ async function getCurrentAvailableSeats() {
 
 let reservationEnabled = true;
 
-//create Kue queue
 const queue = createQueue();
 
-//create express app
 const app = express();
 
 app.get('/available_seats', async function (req, res) {
